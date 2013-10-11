@@ -207,6 +207,12 @@ if "${config_path}"/configure --target=${arch}-elf32 --with-cpu=${ISA_CPU} \
         --with-headers="${config_path}"/newlib/libc/include \
         ${sim_config} ${CONFIG_EXTRA} \
     >> "${log_path}" 2>&1
+
+# To disable "makeinfo" invocation override MAKEINFO var in root Makefile
+if [ -n "$DISABLEMAKEINFO" ]
+then
+    echo "MAKEINFO=:" >> ${build_path}/Makefile
+fi
 then
     echo "  finished configuring tools"
 else

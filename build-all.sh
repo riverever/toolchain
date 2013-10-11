@@ -234,6 +234,12 @@
 #     Install stripped host binaries. Target libraries are not affected.
 #     Default is --no-strip.
 
+# --disable-makeinfo
+
+#     If specified documentation won't be built from source files.
+#     This option implicitly sets "--no-pdf" to inhibit attempt to generate
+#     .pdf output from non-existing sources.
+
 # Where directories are specified as arguments, they are relative to the
 # current directory, unless specified as absolute names.
 
@@ -474,6 +480,12 @@ case ${opt} in
     --no-disable-werror)
 	DISABLEWERROR=
 	;;
+	
+    --disable-makeinfo)
+	DISABLEMAKEINFO=1
+	DO_PDF=--no-pdf
+	CONFIG_EXTRA=$CONFIG_EXTRA MAKEINFO=missing
+	;;
 
     --strip)
         HOST_INSTALL=install-strip
@@ -512,6 +524,7 @@ case ${opt} in
 	echo "                      [--rel-rpaths | --no-rel-rpaths]"
 	echo "                      [--disable-werror | --no-disable-werror]"
 	echo "                      [--strip | --no-strip]"
+	echo "                      [--disable-makeinfo]"
 	exit 1
 	;;
 
@@ -619,6 +632,7 @@ export DO_PDF
 export PARALLEL
 export UCLIBC_DEFCFG
 export DISABLEWERROR
+export DISABLEMAKEINFO
 export HOST_INSTALL
 if [ "x${CFLAGS_FOR_TARGET}" != "x" ]
 then

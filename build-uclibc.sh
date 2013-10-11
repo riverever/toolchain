@@ -342,6 +342,12 @@ if "${config_path}"/configure --target=${arche}-linux-uclibc \
         --without-headers --enable-shared --disable-threads --disable-tls \
 	--disable-libssp --disable-libmudflap --without-newlib --disable-c99 \
 	--disable-libgomp ${CONFIG_EXTRA} >> "${logfile}" 2>&1
+
+# To disable "makeinfo" invocation override MAKEINFO var in root Makefile
+if [ -n "$DISABLEMAKEINFO" ]
+then
+    echo "MAKEINFO=:" >> ${build_dir}/Makefile
+fi
 then
     echo "  finished configuring stage 1"
 else
@@ -474,6 +480,12 @@ if "${config_path}"/configure --target=${arche}-linux-uclibc \
         --enable-languages=c,c++ --prefix="${INSTALLDIR}" \
         --enable-shared --without-newlib --disable-libgomp ${CONFIG_EXTRA} \
     >> "${logfile}" 2>&1
+
+# To disable "makeinfo" invocation override MAKEINFO var in root Makefile
+if [ -n "$DISABLEMAKEINFO" ]
+then
+    echo "MAKEINFO=:" >> ${build_dir}/Makefile
+fi
 then
     echo "  finished configuring stage 2 build"
 else
