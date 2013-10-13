@@ -292,7 +292,8 @@ if "${config_path}"/configure --target=${arche}-linux-uclibc --with-cpu=arc700 \
         --enable-languages=c --prefix="${tmp_install_dir}" \
         --without-headers --enable-shared --disable-threads --disable-tls \
 	--disable-libssp --disable-libmudflap --without-newlib --disable-c99 \
-	--disable-libgomp >> "${logfile}" 2>&1
+	--disable-libgomp MAKEINFO=missing >> "${logfile}" 2>&1
+    echo "MAKEINFO=:" >> ${build_dir}/Makefile
 then
     echo "  finished configuring stage 1"
 else
@@ -409,8 +410,9 @@ if "${config_path}"/configure --target=${arche}-linux-uclibc --with-cpu=arc700 \
         --enable-fast-install=N/A  --with-endian=${ARC_ENDIAN} \
         --with-headers=${tmp_install_dir}/${arche}-linux-uclibc/include \
         --enable-languages=c,c++ --prefix="${INSTALLDIR}" \
-        --enable-shared --without-newlib --disable-libgomp \
+        --enable-shared --without-newlib --disable-libgomp MAKEINFO=missing \
     >> "${logfile}" 2>&1
+    echo "MAKEINFO=:" >> ${build_dir}/Makefile
 then
     echo "  finished configuring stage 2 build"
 else
@@ -463,9 +465,10 @@ if "${config_path}"/configure --target=${arche}-linux-uclibc --with-cpu=arc700 \
         --disable-werror ${DISABLE_MULTILIB} \
         --with-pkgversion="${version_str}"\
         --with-bugurl="${bugurl_str}" \
-        --enable-fast-install=N/A  --with-endian=${ARC_ENDIAN} \
+        --enable-fast-install=N/A  --with-endian=${ARC_ENDIAN} MAKEINFO=missing \
         --prefix="${INSTALLDIR}" \
     >> "${logfile}" 2>&1
+    echo "MAKEINFO=:" >> ${build_dir_gdb}/Makefile
 then
     echo "  finished configuring GDB"
 else

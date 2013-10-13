@@ -137,8 +137,9 @@ if "${config_path}"/configure --target=${arch}-elf32 --with-cpu=arc700 \
         --with-endian=${ARC_ENDIAN} \
         --enable-languages=c,c++ --prefix=${INSTALLDIR} \
         --with-headers="${config_path}"/newlib/libc/include \
-        --enable-sim-endian=no \
+        --enable-sim-endian=no MAKEINFO=missing \
     >> "${log_path}" 2>&1
+    echo "MAKEINFO=:" >> ${build_path}/Makefile
 then
     echo "  finished configuring tools"
 else
@@ -204,8 +205,9 @@ if "${config_path}"/configure --target=${arch}-elf32 --with-cpu=arc700 \
         --with-bugurl="http://solvnet.synopsys.com" \
         --enable-fast-install=N/A \
         --enable-languages=c,c++ --prefix=${INSTALLDIR} \
-        --with-headers="${config_path}"/newlib/libc/include \
+        --with-headers="${config_path}"/newlib/libc/include MAKEINFO=missing \
     >> "${log_path}" 2>&1
+    echo "MAKEINFO=:" >> ${build_path}/Makefile
 then
     echo "  finished configuring tools"
 else
